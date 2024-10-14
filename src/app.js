@@ -60,9 +60,9 @@ app.post("/login", async (req, res) => {
     if (!user) {
       throw new Error("invalid credentials");
     }
-    const isLogin = await bcrypt.compare(password, user.password);
+    const isLogin = await user.validatePassword(password);
     if (isLogin) {
-      const token = await jwt.sign({ _id: user._id }, "devTinder@123",{expiresIn:'7d'});
+      const token = await user.getJWT();
       res.cookie("token", token ,{expires: new Date(Date.now() + 9*900000)});
       res.send("Login is SuccessFull");
     } else {
