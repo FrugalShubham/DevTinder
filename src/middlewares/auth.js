@@ -1,11 +1,6 @@
 const jwt = require("jsonwebtoken");
-const express = require("express");
 const Users = require("../models/users");
-const cookieParser = require("cookie-parser");
 
-const app = express()
-
-app.use(cookieParser());
 
 
 const authUser = async (req, res, next) => {
@@ -16,7 +11,7 @@ const authUser = async (req, res, next) => {
       throw new Error("Invalid Token");
     }
     const decodedObj = await jwt.verify(token, "devTinder@123");
-    console.log(decodedObj)
+
     const { _id } = decodedObj;
 
     const user = await Users.findById(_id);

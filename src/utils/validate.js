@@ -16,7 +16,16 @@ const validateSingUp = (req)=>{
 
 }
 
+const validateEditProfile = (req) =>{
+ const allowToUpdateFelid = ["age","about","photoUrl","gender","skill","firstName","lastName"]
+
+ const isAllowToEdit = Object.keys(req.body).every((k)=> allowToUpdateFelid.includes(k)) 
+
+ return isAllowToEdit
+}
+
 
 module.exports = {
-    validateSingUp
+    validateSingUp,
+    validateEditProfile
 }
